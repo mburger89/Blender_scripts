@@ -8,35 +8,17 @@ import re
 # set the number in with and height
 width = 12
 height = 6
-folder_os_path = os.getcwd().split('/')
-folder_path = f'/{folder_os_path[1]}/{folder_os_path[2]}/Desktop/keycaps_script'
-# read in the command line args
-for arg in sys.argv:
-	# if 'f=' in arg:
-	# 	folder_path = arg.split('=')[1]
-	if 'w=' in arg:
-		width = arg.split('=')[1]
-	elif 'h=' in arg:
-		height = arg.split('=')[1]
-	else:
-		pass
+folder_path = f'{os.getcwd()}/keycaps'
 # read in the folder of keycaps
-if folder_path == '':
-	print('you didnt supply a folder path for the keycap models')
-	sys.exit(1)
 
 def get_file_paths(folder_path):
-	file_name_lst = []
-	for filename in os.walk(folder_path):
-		file_name_lst = filename
-	
-	for obj in file_name_lst[2]:
+	for obj in os.listdir(folder_path):
 		if re.search(r'1u\_', obj):
-			one_u = f'{file_name_lst[0]}/{obj}'
+			one_u = f'{folder_path}/{obj}'
 		elif re.search(r'1uh\_', obj):
-			one_uh = f'{file_name_lst[0]}/{obj}'
+			one_uh = f'{folder_path}/{obj}'
 		elif re.search(r'2u\_', obj):
-			two_u = f'{file_name_lst[0]}/{obj}'
+			two_u = f'{folder_path}/{obj}'
 		else:
 			pass
 	return [one_u, one_uh, two_u]
@@ -130,7 +112,6 @@ if __name__ == "__main__":
 	load_models(cap_file_paths)
 	# create a list of objects in the scene
 	models = {(o[0].split('_')[0]):(o[1].name) for o in bpy.data.meshes.items() if re.search(r'1u|1uh|2u', o[0])}
-	# print(models)
+	print(models)
 	get_dim = get_mesh_dimensions(models)
 	create_array(get_dim)
-	# bpy.ops.wm.save_mainfile(filepath=(f'{folder_path}/keycap_layout.blend'))

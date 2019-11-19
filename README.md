@@ -5,7 +5,7 @@ for bash or zsh the alias should look like this:
 `alias blender="/path/to/your/blender/install"`
 
 To run the script keyboard_gen.py script do:
-`blender -P keyboard.py f=<path to folder> w=<width> h=<height>`
+`blender -P keyboard.py`
 folder structure should look like this:
 
 ```text
@@ -15,4 +15,5 @@ folder structure should look like this:
  |-- 2u_spacebar.obj optional model
 ```
 
-The only things that are important are the text before the underscore and the file type.
+the keycaps models should be placed in the `keycaps/` folder.
+this folder needs to live in the same folder the script is run.
